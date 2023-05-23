@@ -158,10 +158,13 @@ If there is no wall between current state and next state, the agent will move to
                         k_curr = k_next
                         l_curr = l_next
                     
-After the iteration, iteration number will be increased as 1. If it exceed the maximum iteration number, loop will break.
+After the iteration, iteration number will be increased as 1. If next state is the goal state, maximum iteration will be adjusted as iteration(when the agent finally arrived goal state) + 10 to shorten the calculation. If it exceed the maximum iteration number, loop will break.
 
                     iteration = iteration + 1
-                    
+                    if (k_next, l_next) == self.maze.exit_coor and not grid[k_curr][l_curr].is_walls_between(maze.grid[k_next][l_next]):
+                        max_iteration = iteration +10
+                    else:
+                        max_iteration = 500
                     if iteration > max_iteration:
                         break;
                         
